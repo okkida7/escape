@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 3119160087688646297}
   - component: {fileID: 5915499658479662300}
   - component: {fileID: 7235747718351320804}
+  - component: {fileID: -584247450867912455}
   m_Layer: 0
   m_Name: Key
-  m_TagString: Untagged
+  m_TagString: Key
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -92,8 +93,21 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7770448926255489234}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 0.79990655
+  m_Center: {x: -0.096285045, y: 0, z: -0.20362154}
+--- !u!114 &-584247450867912455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7770448926255489234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6065cea87c5314dafad0f3944adb9b6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isPickedUp: 0
