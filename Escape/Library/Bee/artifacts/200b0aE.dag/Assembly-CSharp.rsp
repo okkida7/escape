@@ -109,7 +109,7 @@
 -define:ENABLE_TERRAIN
 -define:ENABLE_TILEMAP
 -define:ENABLE_TIMELINE
--define:ENABLE_INPUT_SYSTEM
+-define:ENABLE_LEGACY_INPUT_MANAGER
 -define:TEXTCORE_FONT_ENGINE_1_5_OR_NEWER
 -define:STARTER_ASSETS_PACKAGES_CHECKED
 -define:CSHARP_7_OR_LATER
@@ -370,9 +370,12 @@
 "Assets/Mobile/Scripts/VirtualInputs/UIVirtualTouchZone.cs"
 "Assets/Scripts/BasicRigidBodyPush.cs"
 "Assets/Scripts/FirstPersonController.cs"
+"Assets/Scripts/HeadBob.cs"
+"Assets/Scripts/Look.cs"
 "Assets/Scripts/MazeCellObject.cs"
 "Assets/Scripts/MazeGenerator.cs"
 "Assets/Scripts/MazeRenderer.cs"
+"Assets/Scripts/PlayerController.cs"
 "Assets/TutorialInfo/Scripts/Readme.cs"
 -langversion:9.0
 
