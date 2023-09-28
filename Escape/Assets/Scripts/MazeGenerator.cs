@@ -9,6 +9,8 @@ public class MazeGenerator : MonoBehaviour
     public int startX, startY;
     MazeCell[,] maze;
     Vector2Int currentCell;
+    public GameObject keyPrefab;
+    List<Vector2Int> deadEnds = new List<Vector2Int>();
 
     public MazeCell[,] GetMaze()
     {
@@ -19,6 +21,7 @@ public class MazeGenerator : MonoBehaviour
             }
         }
         CarvePath(startX, startY);
+        PlaceKeyAtRandomDeadEnd(); 
         return maze;
     }
     List<Direction> directions = new List<Direction>
@@ -111,6 +114,7 @@ public class MazeGenerator : MonoBehaviour
             Vector2Int nextCell = CheckNeighbour();
             if(nextCell == currentCell)
             {
+                deadEnds.Add(currentCell);
                 for(int i = path.Count - 1; i >= 0; i--)
                 {
                     currentCell = path[i];
@@ -133,6 +137,13 @@ public class MazeGenerator : MonoBehaviour
             }
         }
         
+    }
+    void PlaceKeyAtRandomDeadEnd()
+    {
+        if(deadEnds.Count == 0) return;
+        Vector2Int keyPosition = deadEnds[Random.Range(0, deadEnds.Count)];
+        Vector3 worldPosition = new Vector3(keyPosition.x, 0.07f, keyPosition.y);
+        Instantiate(keyPrefab, worldPosition, Quaternion.identity);
     }
 
 }

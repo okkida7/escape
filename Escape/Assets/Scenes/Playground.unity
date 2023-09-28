@@ -273,6 +273,8 @@ MonoBehaviour:
   mazeHeight: 10
   startX: 0
   startY: 0
+  keyPrefab: {fileID: 7770448926255489234, guid: 5a2d75ea70a1c4ab9b63fa76fbe95c3d,
+    type: 3}
 --- !u!4 &643227530
 Transform:
   m_ObjectHideFlags: 0
