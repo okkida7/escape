@@ -7,6 +7,7 @@ public class MazeRenderer : MonoBehaviour
     [SerializeField] MazeGenerator mazeGenerator;
     [SerializeField] GameObject mazeCellPrefab;
     public float cellSize = 1f;
+    public Vector3 doorPosition;
     private void Start()
     {
         MazeCell[,] maze = mazeGenerator.GetMaze();
@@ -21,8 +22,9 @@ public class MazeRenderer : MonoBehaviour
 
                 bool right = false;
                 bool bottom = false;
-                if(x == mazeGenerator.mazeWidth - 1) right = true;
-                if(y == 0) bottom = true;
+                doorPosition = maze[x,y].saveDoor;
+                if(x == mazeGenerator.mazeWidth - 1) right = maze[(int)doorPosition.x,(int)doorPosition.z].rightWall;
+                if(y == 0) bottom = maze[(int)doorPosition.x,(int)doorPosition.z].bottomWall;
 
                 mazeCell.Init(top, bottom, right, left);
             }

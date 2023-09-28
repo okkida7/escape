@@ -10,6 +10,7 @@ public class MazeGenerator : MonoBehaviour
     MazeCell[,] maze;
     Vector2Int currentCell;
     public GameObject keyPrefab;
+    public GameObject doorPrefab;
     List<Vector2Int> deadEnds = new List<Vector2Int>();
 
     public MazeCell[,] GetMaze()
@@ -22,6 +23,7 @@ public class MazeGenerator : MonoBehaviour
         }
         CarvePath(startX, startY);
         PlaceKeyAtRandomDeadEnd(); 
+        PlaceDoorAtRandomEdge(new Vector3(0, 0, 0));
         return maze;
     }
     List<Direction> directions = new List<Direction>
@@ -138,6 +140,39 @@ public class MazeGenerator : MonoBehaviour
         }
         
     }
+    float CalculateDistance(Vector3 pointA, Vector3 pointB)
+    {
+        return Vector3.Distance(pointA, pointB);
+    }
+
+    List<Vector3> GetFarEdgeCells(Vector3 playerPosition, float threshold)
+    {
+        List<Vector3> edgeCells = new List<Vector3>();
+        List<Vector3> farCells = new List<Vector3>();
+        for(int x = 0; x < mazeWidth; x++)
+        {
+            edgeCells.Add(new Vector3(x, 0, 0));
+            edgeCells.Add(new Vector3(x, 0, mazeHeight - 1));
+        }
+
+        // Collect left and right edge cells.
+        for(int y = 0; y < mazeHeight; y++)
+        {
+            edgeCells.Add(new Vector3(0, 0, y));
+            edgeCells.Add(new Vector3(mazeWidth - 1, 0, y));
+        }
+
+        // Filter out cells that are too close to the player.
+        foreach (Vector3 cell in edgeCells)
+        {
+            if(CalculateDistance(playerPosition, cell) >= threshold)
+            {
+                farCells.Add(cell);
+            }
+        }
+
+        return farCells;
+    }
     void PlaceKeyAtRandomDeadEnd()
     {
         if(deadEnds.Count == 0) return;
@@ -145,8 +180,61 @@ public class MazeGenerator : MonoBehaviour
         Vector3 worldPosition = new Vector3(keyPosition.x, 0.07f, keyPosition.y);
         Instantiate(keyPrefab, worldPosition, Quaternion.identity);
     }
+    void PlaceDoorAtRandomEdge(Vector3 playerPosition)
+    {
+        float distanceThreshold = Mathf.Max(mazeWidth, mazeHeight) / 2.0f;  // Adjust this value if needed.
+        List<Vector3> farCells = GetFarEdgeCells(playerPosition, distanceThreshold);
 
+        if(farCells.Count == 0)
+        {
+            Debug.LogError("No suitable location found for the door. Increase the maze size or reduce the threshold.");
+            return;
+        }
+
+        Vector3 doorPosition = farCells[Random.Range(0, farCells.Count)];
+
+        // Adjusting the door's position, rotation, and wall data based on the edge.
+        Quaternion doorRotation = Quaternion.identity; 
+        float doorDepth = 0.5f; // half of the 0.1 scale on Z axis
+
+        if(doorPosition.x == 0)
+        {
+            doorRotation = Quaternion.Euler(0, 90, 0);
+            doorPosition.x -= doorDepth;
+            maze[(int)doorPosition.x, (int)doorPosition.z].leftWall = false;
+            maze[(int)doorPosition.x, (int)doorPosition.z].saveDoor = doorPosition;
+            Debug.Log(1);
+        }
+        else if(doorPosition.x == mazeWidth - 1)
+        {
+            doorRotation = Quaternion.Euler(0, -90, 0);
+            doorPosition.x += doorDepth;
+            maze[(int)doorPosition.x, (int)doorPosition.z].rightWall = false;
+            maze[(int)doorPosition.x, (int)doorPosition.z].saveDoor = doorPosition;
+            Debug.Log(2);
+        }
+        else if(doorPosition.z == 0)
+        {
+            doorRotation = Quaternion.Euler(0, 180, 0);
+            doorPosition.z -= doorDepth;
+            maze[(int)doorPosition.x, (int)doorPosition.z].bottomWall = false;
+            maze[(int)doorPosition.x, (int)doorPosition.z].saveDoor = doorPosition;
+            Debug.Log(3);
+        }
+        else if(doorPosition.z == mazeHeight - 1)
+        {
+            doorRotation = Quaternion.Euler(0, 0, 0);
+            doorPosition.z += doorDepth;
+            maze[(int)doorPosition.x, (int)doorPosition.z].topWall = false;
+            maze[(int)doorPosition.x, (int)doorPosition.z].saveDoor = doorPosition;
+            Debug.Log(4);
+        }
+        doorPosition.y = 0.466f;
+
+        Instantiate(doorPrefab, doorPosition, doorRotation);
+    }
 }
+
 public enum Direction
 {
     Up,
@@ -158,9 +246,12 @@ public class MazeCell
 {
     public bool visited;
     public int x,y;
+    public Vector3 saveDoor;
 
     public bool topWall;
     public bool leftWall;
+    public bool rightWall;
+    public bool bottomWall;
 
     public Vector2Int position{
         get {
@@ -174,8 +265,10 @@ public class MazeCell
         this.y = y;
 
         visited = false;
+        saveDoor = new Vector3(0,0,0);
 
         topWall = leftWall = true;
+        rightWall = bottomWall = true;
     }
 }
 

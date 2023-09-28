@@ -144,7 +144,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &291672884
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -257,6 +257,7 @@ MonoBehaviour:
   mazeCellPrefab: {fileID: 3369100184696172548, guid: 0a7fa13643dae44458c3d0ce1eb98978,
     type: 3}
   cellSize: 1
+  doorPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &643227529
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -274,6 +275,8 @@ MonoBehaviour:
   startX: 0
   startY: 0
   keyPrefab: {fileID: 7770448926255489234, guid: 5a2d75ea70a1c4ab9b63fa76fbe95c3d,
+    type: 3}
+  doorPrefab: {fileID: 7487448775478737100, guid: 7377cc323b91b41b6980bcc96a721ca2,
     type: 3}
 --- !u!4 &643227530
 Transform:
