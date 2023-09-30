@@ -258,3 +258,19 @@ AssetImportParameters requested are different than current active one (requested
   custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
   custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
   custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 82.565500 seconds.
+  path: Assets/Prefabs/MazeCell.prefab
+  artifactKey: Guid(0a7fa13643dae44458c3d0ce1eb98978) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Number of updated assets reloaded before import = 0
+Start importing Assets/Prefabs/MazeCell.prefab using Guid(0a7fa13643dae44458c3d0ce1eb98978) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e82bd8e99d72e32463d06f79dedc4eaa') in 0.173095 seconds 
+Number of asset objects unloaded after import = 45
+========================================================================
+Received Import Request.
+  Time since last request: 5.683280 seconds.
+  path: ProjectSettings/TagManager.asset
+  artifactKey: Guid(00000000000000003000000000000000) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Number of updated assets reloaded before import = 0
+Start importing ProjectSettings/TagManager.asset using Guid(00000000000000003000000000000000) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'dd3acc14f9f8f42b79a87a7006426b13') in 0.001703 seconds 
+Number of asset objects unloaded after import = 0
