@@ -229,7 +229,7 @@ public class MazeGenerator : MonoBehaviour
             maze[(int)doorPosition.x, (int)doorPosition.z].saveDoor = doorPosition;
             Debug.Log(4);
         }
-        doorPosition.y = 0.466f;
+        doorPosition.y = 0.08f;
 
         Instantiate(doorPrefab, doorPosition, doorRotation);
     }

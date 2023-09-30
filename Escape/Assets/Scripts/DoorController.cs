@@ -7,6 +7,8 @@ public class DoorController : MonoBehaviour
     private bool isNear = false; // A flag to check if player is near the door.
     private bool isOpen = false; // To check if door is already open or closed.
     private KeyController key;
+    public Animator animator; // The animator component attached to the door.
+    public Collider collider; // The collider component attached to the door.
     void Start()
     {
         key = GameObject.FindWithTag("Key").GetComponent<KeyController>();
@@ -44,7 +46,8 @@ public class DoorController : MonoBehaviour
     void OpenDoor()
     {
         isOpen = true;
-        Destroy(gameObject);
+        animator.SetBool("open", true);
+        collider.enabled = false;
     }
 }
 
