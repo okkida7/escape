@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class DoorController : MonoBehaviour
 {
-    private bool isNear = false; // A flag to check if player is near the door.
-    private bool isOpen = false; // To check if door is already open or closed.
+    public bool isNear = false; // A flag to check if player is near the door.
+    public bool isOpen = false; // To check if door is already open or closed.
     private KeyController key;
     public Animator animator; // The animator component attached to the door.
     public Collider collider; // The collider component attached to the door.
@@ -15,11 +15,6 @@ public class DoorController : MonoBehaviour
     }
     void Update()
     {
-        // Check if player is near and presses space
-        if(key.isPickedUp)
-        {
-            Debug.Log("Key is picked up");
-        }
         if (isNear && Input.GetKeyDown(KeyCode.Space) && !isOpen && key.isPickedUp)
         {
             OpenDoor();

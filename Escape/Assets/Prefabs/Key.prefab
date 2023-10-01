@@ -110,4 +110,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6065cea87c5314dafad0f3944adb9b6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isNear: 0
   isPickedUp: 0

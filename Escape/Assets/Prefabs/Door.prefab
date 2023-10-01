@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7883476407252133202}
   m_Layer: 0
   m_Name: Door
-  m_TagString: Untagged
+  m_TagString: Door
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -60,6 +60,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed10c32e33fbb4f14b4aded19b728ac8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isNear: 0
+  isOpen: 0
   animator: {fileID: 7187149937309249487}
   collider: {fileID: 1502910529601308260}
 --- !u!135 &7883476407252133202

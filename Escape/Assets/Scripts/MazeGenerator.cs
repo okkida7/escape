@@ -11,6 +11,11 @@ public class MazeGenerator : MonoBehaviour
     Vector2Int currentCell;
     public GameObject keyPrefab;
     public GameObject doorPrefab;
+    private KeyController keyController;
+    public GameObject keyPanel;
+    private DoorController doorController;
+    public GameObject doorWithoutKey;
+    public GameObject doorWithKey;
     List<Vector2Int> deadEnds = new List<Vector2Int>();
 
     public MazeCell[,] GetMaze()
@@ -174,15 +179,43 @@ public class MazeGenerator : MonoBehaviour
 
         return farCells;
     }
+    void Start()
+    {
+        keyController = GameObject.FindWithTag("Key").GetComponent<KeyController>();
+        doorController = GameObject.FindWithTag("Door").GetComponent<DoorController>();
+    }
+    void Update()
+    {
+        if(keyController.isNear == true)
+        {
+            keyPanel.SetActive(true);
+            Debug.Log("key is near");
+        }else
+        {
+            keyPanel.SetActive(false);
+        }
+        if(doorController.isNear && doorController.isOpen)
+        {
+            doorWithoutKey.SetActive(false);
+            doorWithKey.SetActive(true);
+        }else if(doorController.isNear)
+        {
+            doorWithoutKey.SetActive(true);
+            doorWithKey.SetActive(false);
+        }else
+        {
+            doorWithoutKey.SetActive(false);
+            doorWithKey.SetActive(false);
+        }
+    }
+
     void PlaceKeyAtRandomDeadEnd()
     {
         if(deadEnds.Count == 0) return;
         Vector2Int keyPosition = deadEnds[Random.Range(0, deadEnds.Count)];
-
-        
-
         Vector3 worldPosition = new Vector3(keyPosition.x, 0.07f, keyPosition.y);
         Instantiate(keyPrefab, worldPosition, Quaternion.identity);
+        
     }
     void PlaceDoorAtRandomEdge(Vector3 playerPosition)
     {

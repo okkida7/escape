@@ -293,14 +293,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63677323fed7946568fba061113b5f4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mazeWidth: 5
-  mazeHeight: 5
+  mazeWidth: 8
+  mazeHeight: 8
   startX: 0
   startY: 0
   keyPrefab: {fileID: 7770448926255489234, guid: 5a2d75ea70a1c4ab9b63fa76fbe95c3d,
     type: 3}
   doorPrefab: {fileID: 7487448775478737100, guid: 7377cc323b91b41b6980bcc96a721ca2,
     type: 3}
+  keyPanel: {fileID: 0}
+  doorWithoutKey: {fileID: 0}
+  doorWithKey: {fileID: 0}
 --- !u!4 &643227530
 Transform:
   m_ObjectHideFlags: 0
@@ -558,12 +561,12 @@ PrefabInstance:
     - target: {fileID: 8346010694305822800, guid: eacb4c4dd606a44d687ebe8620ec2d3a,
         type: 3}
       propertyPath: xSensitivity
-      value: 2000
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 8346010694305822800, guid: eacb4c4dd606a44d687ebe8620ec2d3a,
         type: 3}
       propertyPath: ySensitivity
-      value: 2000
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 8346010694305822803, guid: eacb4c4dd606a44d687ebe8620ec2d3a,
         type: 3}
