@@ -42,12 +42,12 @@ public class EnemyAI : MonoBehaviour
                 agent.speed = chaseSpeed;
                 agent.destination = player.transform.position;
             }
-            else if (distanceToPlayer < 1f)
+            else if (distanceToPlayer < 0.5f)
             {
                 anim.SetBool("isRunning", false);
                 anim.SetBool("isScreaming", true);
                 anim.SetBool("isWalking", false);
-                yield return new WaitForSeconds(2f);
+                yield return new WaitForSeconds(5f);
                 SceneManager.LoadScene(3);
 
             }else if(distanceToPlayer > 2f)
