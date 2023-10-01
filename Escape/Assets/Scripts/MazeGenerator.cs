@@ -177,6 +177,9 @@ public class MazeGenerator : MonoBehaviour
     {
         if(deadEnds.Count == 0) return;
         Vector2Int keyPosition = deadEnds[Random.Range(0, deadEnds.Count)];
+
+        
+
         Vector3 worldPosition = new Vector3(keyPosition.x, 0.07f, keyPosition.y);
         Instantiate(keyPrefab, worldPosition, Quaternion.identity);
     }

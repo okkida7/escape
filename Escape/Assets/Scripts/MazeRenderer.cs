@@ -27,6 +27,8 @@ public class MazeRenderer : MonoBehaviour
                 if(y == 0) bottom = maze[(int)doorPosition.x,(int)doorPosition.z].bottomWall;
 
                 mazeCell.Init(top, bottom, right, left);
+
+                
             }
         }
     }
