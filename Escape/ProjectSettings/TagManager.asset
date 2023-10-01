@@ -8,6 +8,8 @@ TagManager:
   - Key
   - Floor
   - Wall
+  - Enemy
+  - Plane
   layers:
   - Default
   - TransparentFX

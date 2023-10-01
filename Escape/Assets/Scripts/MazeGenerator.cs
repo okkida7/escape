@@ -24,6 +24,7 @@ public class MazeGenerator : MonoBehaviour
         CarvePath(startX, startY);
         PlaceKeyAtRandomDeadEnd(); 
         PlaceDoorAtRandomEdge(new Vector3(0, 0, 0));
+        //PlaceEnemy();
         return maze;
     }
     List<Direction> directions = new List<Direction>
@@ -237,6 +238,7 @@ public class MazeGenerator : MonoBehaviour
         Instantiate(doorPrefab, doorPosition, doorRotation);
     }
 }
+
 
 public enum Direction
 {

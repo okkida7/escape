@@ -1,93 +1,72 @@
-using System.Collections;
 using System.Collections.Generic;
-using Unity.AI.Navigation;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class BakeNavMesh : MonoBehaviour
 {
-    // Rebake NavMesh at runtime
-    //public NavMeshSurface surface;
-    //public NavMeshObstacle obstacle;
+    [SerializeField] GameObject enemyAIPrefab;
 
-    GameObject[] floors = new GameObject[] {};
-    GameObject[] walls = new GameObject[] {};
-    NavMeshSurface[] surfaces = new NavMeshSurface[] {};
-    
-    bool enemyAI = false; // has the enemy AI been instantiated?
-    [SerializeField] GameObject enemyAIPrefab; 
-
-    void Start()
-    {
-        /*
-        //surface.BuildNavMesh();
-        floors = GameObject.FindGameObjectsWithTag("Floor");
-        walls = GameObject.FindGameObjectsWithTag("Wall");
-        surfaces = new NavMeshSurface[floors.Length];
-
-        for (int i = 0; i < floors.Length; i++)
-        {
-            floors[i].AddComponent<NavMeshSurface>();
-            surfaces[i] = floors[i].GetComponent<NavMeshSurface>();
-        }
-        for (int i = 0; i < walls.Length; i++)
-        {
-            walls[i].AddComponent<NavMeshObstacle>();
-            walls[i].GetComponent<NavMeshObstacle>().center = new Vector3(0, 0, 0);
-        }
-
-        for (int i = 0; i < surfaces.Length; i++)
-        {
-            surfaces[i].BuildNavMesh();
-        } */
-    }
+    private bool environmentProcessed = false;
+    private bool enemyAICreated = false;
 
     private void Update()
     {
-        if (floors.Length == 0)
+        if (!environmentProcessed)
         {
-            floors = GameObject.FindGameObjectsWithTag("Floor");
-            walls = GameObject.FindGameObjectsWithTag("Wall");
-            surfaces = new NavMeshSurface[floors.Length];
-
-            for (int i = 0; i < floors.Length; i++)
-            {
-                floors[i].AddComponent<NavMeshSurface>();
-                surfaces[i] = floors[i].GetComponent<NavMeshSurface>();
-            }
-            
-            for (int i = 0; i < walls.Length; i++)
-            {
-                
-                walls[i].AddComponent<NavMeshObstacle>();
-                walls[i].GetComponent<NavMeshObstacle>().center = new Vector3(0, 0, 0);
-                 
-            } 
-
-            for (int i = 0; i < surfaces.Length; i++)
-            {
-                surfaces[i].BuildNavMesh();
-            }
+            ProcessEnvironment();
+            environmentProcessed = true;
         }
         
-        if (!enemyAI)
+        if (!enemyAICreated)
         {
-            makeEnemyAI();
-            //Instantiate(enemyAIPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-            //enemyAI = true;
-
+            MakeEnemyAI();
+            enemyAICreated = true;
         } 
     }
 
-    
-    void makeEnemyAI()
+    private void ProcessEnvironment()
+    {
+        GameObject[] floors = GameObject.FindGameObjectsWithTag("Floor");
+        GameObject[] walls = GameObject.FindGameObjectsWithTag("Wall");
+
+        foreach (var floor in floors)
+        {
+            NavMeshSurface surface = floor.AddComponent<NavMeshSurface>();
+            surface.BuildNavMesh();
+        }
+
+        foreach (var wall in walls)
+        {
+            NavMeshObstacle obstacle = wall.AddComponent<NavMeshObstacle>();
+            Collider wallCollider = wall.GetComponent<Collider>();
+
+            if (wallCollider)
+            {
+                // Set the NavMeshObstacle's size to match the wall's collider size.
+                obstacle.size = wallCollider.bounds.size;
+                // Center the NavMeshObstacle to the wall's collider center (relative to the wall's transform).
+                obstacle.center = wall.transform.InverseTransformPoint(wallCollider.bounds.center);
+            }
+            else
+            {
+                Debug.LogWarning($"Wall {wall.name} does not have a collider attached.");
+            }
+        }
+    }
+
+
+    private void MakeEnemyAI()
     {
         GameObject key = GameObject.FindGameObjectWithTag("Key");
-        Vector3 key_pos = key.transform.position;
-
-        Vector3 enemy_pos = new Vector3(key_pos.x - .1f, key_pos.y, key_pos.z - .1f);
-        Instantiate(enemyAIPrefab, enemy_pos, Quaternion.identity);
-        enemyAI = true;
+        if (key != null)
+        {
+            Vector3 keyPos = key.transform.position;
+            Vector3 enemyPos = keyPos;
+            Instantiate(enemyAIPrefab, enemyPos, Quaternion.identity);
+        }
+        else
+        {
+            Debug.LogWarning("No object with the 'Key' tag was found. Unable to determine position for enemy AI.");
+        }
     }
-    
 }

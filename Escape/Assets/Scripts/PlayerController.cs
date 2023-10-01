@@ -7,8 +7,6 @@ public class PlayerController : MonoBehaviour
 {
     public float speed;
     public Rigidbody rig;
-
-
     private void Start()
     {
         Camera.main.enabled = false;
