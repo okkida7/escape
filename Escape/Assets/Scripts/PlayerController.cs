@@ -7,6 +7,12 @@ public class PlayerController : MonoBehaviour
 {
     public float speed;
     public Rigidbody rig;
+    public AudioSource footstepAudio;  // Audio source for footstep sounds
+    public AudioClip footstepClip;     // The footstep sound clip
+    public float footstepInterval = 0.5f; // Interval between footstep sounds
+
+    private float footstepCooldown;   // Timer for footstep sound interval
+
     private void Start()
     {
         Camera.main.enabled = false;
@@ -24,5 +30,22 @@ public class PlayerController : MonoBehaviour
         t_targetVelocity.y = rig.velocity.y;
         rig.velocity = t_targetVelocity;
 
+        // Play footstep sound
+        PlayFootstepSounds(t_hmove, t_vmove);
+    }
+
+    // Play footstep sounds based on movement and a cooldown
+    private void PlayFootstepSounds(float hmove, float vmove)
+    {
+        // Check if player is moving
+        if (hmove != 0 || vmove != 0)
+        {
+            if (footstepCooldown <= 0)
+            {
+                footstepAudio.PlayOneShot(footstepClip);
+                footstepCooldown = footstepInterval;
+            }
+            footstepCooldown -= Time.fixedDeltaTime;
+        }
     }
 }

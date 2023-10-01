@@ -61,7 +61,6 @@ namespace UnityStandardAssets.ImageEffects
 
             // We are accumulating motion over frames without clear/discard
             // by design, so silence any performance warnings from Unity
-            accumTexture.MarkRestoreExpected();
 
             // Render the image using the motion blur shader
             Graphics.Blit (source, accumTexture, material);

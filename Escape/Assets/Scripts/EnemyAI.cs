@@ -13,6 +13,7 @@ public class EnemyAI : MonoBehaviour
     GameObject player;
     public float chaseSpeed;
     public float patrolSpeed;
+    public bool jumpScare = false;
 
     void Start()
     {
@@ -42,13 +43,12 @@ public class EnemyAI : MonoBehaviour
                 agent.speed = chaseSpeed;
                 agent.destination = player.transform.position;
             }
-            else if (distanceToPlayer < 0.5f)
+            else if (distanceToPlayer < 0.7f)
             {
                 anim.SetBool("isRunning", false);
                 anim.SetBool("isScreaming", true);
                 anim.SetBool("isWalking", false);
-                yield return new WaitForSeconds(5f);
-                SceneManager.LoadScene(3);
+                jumpScare = true;
 
             }else if(distanceToPlayer > 2f)
             {

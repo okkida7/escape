@@ -335,6 +335,7 @@
 "Assets/Mobile/Scripts/VirtualInputs/UIVirtualButton.cs"
 "Assets/Mobile/Scripts/VirtualInputs/UIVirtualJoystick.cs"
 "Assets/Mobile/Scripts/VirtualInputs/UIVirtualTouchZone.cs"
+"Assets/Scripts/BackgroundLoader.cs"
 "Assets/Scripts/BakeNavMesh.cs"
 "Assets/Scripts/DoorController.cs"
 "Assets/Scripts/EnemyAI.cs"

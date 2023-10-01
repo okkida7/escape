@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using System.Collections;
 
 public class BakeNavMesh : MonoBehaviour
 {
@@ -8,7 +9,14 @@ public class BakeNavMesh : MonoBehaviour
 
     private bool environmentProcessed = false;
     private bool enemyAICreated = false;
+    private EnemyAI enemyAI;
+    public GameObject jumpCanvas;
 
+    private void Start()
+    {
+        MakeEnemyAI();
+        enemyAI = GameObject.FindGameObjectWithTag("Enemy").GetComponent<EnemyAI>();
+    }
     private void Update()
     {
         if (!environmentProcessed)
@@ -16,12 +24,17 @@ public class BakeNavMesh : MonoBehaviour
             ProcessEnvironment();
             environmentProcessed = true;
         }
-        
-        if (!enemyAICreated)
+        if(enemyAI.jumpScare)
         {
-            MakeEnemyAI();
-            enemyAICreated = true;
-        } 
+            jumpCanvas.SetActive(true);
+            StartCoroutine(GameOver());
+        }
+    }
+
+    IEnumerator GameOver()
+    {
+        yield return new WaitForSeconds(2f);
+        UnityEngine.SceneManagement.SceneManager.LoadScene(3);
     }
 
     private void ProcessEnvironment()

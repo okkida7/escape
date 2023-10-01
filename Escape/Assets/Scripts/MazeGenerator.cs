@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MazeGenerator : MonoBehaviour
 {
@@ -17,6 +18,9 @@ public class MazeGenerator : MonoBehaviour
     public GameObject doorWithoutKey;
     public GameObject doorWithKey;
     List<Vector2Int> deadEnds = new List<Vector2Int>();
+    public EnemyAI enemyAI;
+    public GameObject jumpCam;
+    public GameObject FlashImg;
 
     public MazeCell[,] GetMaze()
     {
@@ -186,19 +190,18 @@ public class MazeGenerator : MonoBehaviour
     }
     void Update()
     {
-        if(keyController.isNear == true)
+        if(keyController.isNear == true && !keyController.isPickedUp)
         {
             keyPanel.SetActive(true);
-            Debug.Log("key is near");
         }else
         {
             keyPanel.SetActive(false);
         }
-        if(doorController.isNear && doorController.isOpen)
+        if(doorController.isNear && keyController.isPickedUp)
         {
             doorWithoutKey.SetActive(false);
             doorWithKey.SetActive(true);
-        }else if(doorController.isNear)
+        }else if(doorController.isNear && !keyController.isPickedUp)
         {
             doorWithoutKey.SetActive(true);
             doorWithKey.SetActive(false);
