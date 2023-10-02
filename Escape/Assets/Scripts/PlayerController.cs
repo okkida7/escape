@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
     public Rigidbody rig;
     public AudioSource footstepAudio;  // Audio source for footstep sounds
     public AudioClip footstepClip;     // The footstep sound clip
-    public float footstepInterval = 0.5f; // Interval between footstep sounds
+    public float footstepInterval = 0.7f; // Interval between footstep sounds
 
     private float footstepCooldown;   // Timer for footstep sound interval
 

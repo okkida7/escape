@@ -33,7 +33,7 @@ public class BakeNavMesh : MonoBehaviour
 
     IEnumerator GameOver()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(3f);
         UnityEngine.SceneManagement.SceneManager.LoadScene(3);
     }
 

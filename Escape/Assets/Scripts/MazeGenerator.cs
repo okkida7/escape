@@ -190,6 +190,7 @@ public class MazeGenerator : MonoBehaviour
     }
     void Update()
     {
+        if(!keyPanel || !doorWithoutKey || !doorWithKey) return;
         if(keyController.isNear == true && !keyController.isPickedUp)
         {
             keyPanel.SetActive(true);
